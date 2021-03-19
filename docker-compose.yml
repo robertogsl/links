@@ -1,0 +1,71 @@
+version: "3"
+services:
+  app:
+    user: ${CURRENT_USER}
+    build:
+      context: .
+      dockerfile: docker/Development/php.dockerfile
+      args:
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_USER=${CURRENT_USER}
+    volumes:
+      - .:/var/www
+      - ~/.ssh:${HOME}/.ssh
+      - ~/.gitconfig:${HOME}/.gitconfig
+    working_dir: /var/www
+    ports:
+      - "8081:8081"
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/Development/nginx.dockerfile
+    working_dir: /var/www
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - app
+      - database
+
+  composer:
+    user: ${CURRENT_USER}
+    build:
+      context: .
+      dockerfile: docker/Development/composer.dockerfile
+      args:
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_USER=${CURRENT_USER}
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    depends_on:
+      - app
+    entrypoint: ["composer"]
+    environment:
+      PATH: "/root/.composer/vendor/bin:${PATH}"
+
+  node:
+    image: node:12
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+
+  database:
+    image: mysql:5.7
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      VIRTUAL_HOST: db.links.dev
+      MYSQL_DATABASE: links
+      MYSQL_USER: links
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  dbdata:
