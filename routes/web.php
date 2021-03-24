@@ -14,5 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $links = \App\Link::all();
+
+    return view('welcome', ['links' => $links]);
 });
+
+// with()
+return view('welcome')->with('links', $links);
+
+// dynamic method to name the variable
+return view('welcome')->withLinks($links);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
