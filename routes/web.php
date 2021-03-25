@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $links = \App\Link::all();
-
-    return view('welcome', ['links' => $links]);
-});
-
-// with()
-return view('welcome')->with('links', $links);
-
-// dynamic method to name the variable
-return view('welcome')->withLinks($links);
+Route::get('/', 'WelcomeController@index')->name('welcome');
 
 Auth::routes();
 
+Route::get('/submit', 'LinkController@index')->name('showLink');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/submit', 'LinkController@store')->name('createLink');
