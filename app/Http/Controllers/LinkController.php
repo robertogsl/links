@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LinkStoreRequest;
 use App\Link;
 use Illuminate\Http\Request;
 
@@ -24,16 +25,12 @@ class LinkController extends Controller
      */
     public function index()
     {
-        return view('submit');
+        return view('links');
     }
 
-    public function store(Request $request)
+    public function store(LinkStoreRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|max:255',
-            'url' => 'required|url|max:255',
-            'description' => 'required|max:255',
-        ]);
+        $data = $request->validated();
     
         tap(new Link($data))->save();
     

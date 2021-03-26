@@ -13,7 +13,7 @@ class SubmitLinksTest extends TestCase
     /** @test */
     function guest_can_submit_a_new_link()
     {
-        $response = $this->post('/submit', [
+        $response = $this->post('/links', [
             'title' => 'Example Title',
             'url' => 'http://example.com',
             'description' => 'Example description.',
@@ -35,7 +35,7 @@ class SubmitLinksTest extends TestCase
     /** @test */
     function link_is_not_created_if_validation_fails()
     {
-        $response = $this->post('/submit');
+        $response = $this->post('/links');
 
         $response->assertSessionHasErrors(['title', 'url', 'description']);
     }
@@ -49,7 +49,7 @@ class SubmitLinksTest extends TestCase
 
         foreach ($cases as $case) {
             try {
-                $response = $this->post('/submit', [
+                $response = $this->post('/links', [
                     'title' => 'Example Title',
                     'url' => $case,
                     'description' => 'Example description',
@@ -77,7 +77,7 @@ class SubmitLinksTest extends TestCase
         $url .= str_repeat('a', 256 - strlen($url));
 
         try {
-            $this->post('/submit', compact('title', 'url', 'description'));
+            $this->post('/links', compact('title', 'url', 'description'));
         } catch(ValidationException $e) {
             $this->assertEquals(
                 'The title may not be greater than 255 characters.',
@@ -112,7 +112,7 @@ class SubmitLinksTest extends TestCase
             'description' => str_repeat('a', 255),
         ];
 
-        $this->post('/submit', $data);
+        $this->post('/links', $data);
 
         $this->assertDatabaseHas('links', $data);
     }

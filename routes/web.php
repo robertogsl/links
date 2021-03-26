@@ -18,8 +18,8 @@ Route::get('/', 'WelcomeController@index')->name('welcome');
 
 Auth::routes();
 
-Route::get('/submit', 'LinkController@index')->name('showLink');
+Route::get('/links', 'LinkController@index')->name('showLink');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/submit', 'LinkController@store')->name('createLink');
+Route::post('/links', 'LinkController@store')->name('createLink');
