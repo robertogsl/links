@@ -23,3 +23,5 @@ Route::get('/links', 'LinkController@index')->name('showLink');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/links', 'LinkController@store')->name('createLink');
+
+Route::get('/remoteConfig', 'AplicationController@index')->name('showRC');
