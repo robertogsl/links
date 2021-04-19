@@ -25,3 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/links', 'LinkController@store')->name('createLink');
 
 Route::get('/remoteConfig', 'AplicationController@index')->name('showRC');
+
+Route::get('/remoteConfig/config', 'ConfigController@index')->name('showConfig');
+
+Route::get('/remoteconfig/cadastrar', 'NewAplicationController@index')->name('showAplication');
+
+Route::post('/remoteconfig/cadastrar', 'NewAplicationController@store')->name('createAplication');

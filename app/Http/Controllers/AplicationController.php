@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AplicationController extends Controller {
     /**
@@ -10,11 +11,8 @@ class AplicationController extends Controller {
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id = auth()->id();
-        $aplications = \App\Aplication::all();
-        dd($aplications);
-        return view('dashboard', ['aplications' => $aplications, 'id' => $id]);
+        return view('dashboard', ['aplications' => auth()->user()->aplications]);
     }
 }

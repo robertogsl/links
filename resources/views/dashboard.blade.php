@@ -7,15 +7,18 @@
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
                     <div class="card-body">
-    <!-- if para validar se usuário possui alguma aplicação já cadastrada -->
-                        @if ($aplications && $id == 1)
-                            @foreach ($aplications as $aplication)
-                                <a href="#">{{ $aplication->name }}</a> <br>
-                            @endforeach
-                        @else
-                            {{ __("You don't have any aplications registered!") }}
-                        @endif
 
+                        <div class="container">
+                            <table class="table">
+                            @foreach ($aplications as $aplication)
+                                <tr>
+                                    <td>{{ $aplication->name }}</td>
+                                    <td><a href="{{ url('remoteConfig/config') }}"><button>Editar</button></a></td>
+                                </tr>
+                            @endforeach
+                            </table>
+                            <a href="{{ url('/remoteconfig/cadastrar') }}"><button style="margin-left: 36%;">Cadastrar nova aplicação</button></a>
+                        </div>
                     </div>
                 </div>
             </div>

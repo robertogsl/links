@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Aplication;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Config extends Model
 {
@@ -11,4 +13,8 @@ class Config extends Model
         'userLastAlteration',
         'aplication_id'
     ];
+
+    public function aplications():BelongsTo {
+        return $this->belongsTo(Aplication::class);
+    }
 }
