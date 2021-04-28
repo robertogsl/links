@@ -5,7 +5,7 @@
             <h1>Submit an Aplication</h1>
         </div>
         <div class="row">
-            <form action="/remoteconfig/cadastrar" method="post">
+            <form action="/remoteConfig/cadastrar" method="post">
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger" role="alert">

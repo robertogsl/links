@@ -13,11 +13,11 @@
                             @foreach ($aplications as $aplication)
                                 <tr>
                                     <td>{{ $aplication->name }}</td>
-                                    <td><a href="{{ url('remoteConfig/config') }}"><button>Editar</button></a></td>
+                                    <td><a href="{{ url('remoteConfig/config', [$aplication->id]) }}"><button>Editar</button></a></td>
                                 </tr>
                             @endforeach
                             </table>
-                            <a href="{{ url('/remoteconfig/cadastrar') }}"><button style="margin-left: 36%;">Cadastrar nova aplicação</button></a>
+                            <a href="{{ url('/remoteConfig/cadastrar') }}"><button style="margin-left: 36%;">Cadastrar nova aplicação</button></a>
                         </div>
                     </div>
                 </div>

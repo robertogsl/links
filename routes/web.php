@@ -26,8 +26,10 @@ Route::post('/links', 'LinkController@store')->name('createLink');
 
 Route::get('/remoteConfig', 'AplicationController@index')->name('showRC');
 
-Route::get('/remoteConfig/config', 'ConfigController@index')->name('showConfig');
+Route::get('/remoteConfig/config/{id}', 'ConfigController@index')->name('showConfig');
 
-Route::get('/remoteconfig/cadastrar', 'NewAplicationController@index')->name('showAplication');
+Route::post('/remoteConfig/config/{id}', 'ConfigController@store')->name('storeConfig');
 
-Route::post('/remoteconfig/cadastrar', 'NewAplicationController@store')->name('createAplication');
+Route::get('/remoteConfig/cadastrar', 'AplicationController@viewRegisterAplication')->name('showAplication');
+
+Route::post('/remoteConfig/cadastrar', 'AplicationController@store')->name('createAplication');
