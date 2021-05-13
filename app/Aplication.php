@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Config;
+use App\Historic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,5 +22,9 @@ class Aplication extends Model
 
     public function configs():HasOne {
         return $this->hasOne(Config::class);
+    }
+
+    public function historics():HasOne {
+        return $this->hasOne(Historic::class);
     }
 }

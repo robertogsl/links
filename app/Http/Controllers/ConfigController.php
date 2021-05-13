@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Historic;
 use App\Http\Requests\ConfigStoreRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,14 @@ class ConfigController extends Controller {
     public function store(ConfigStoreRequest $request, string $id) 
     {
         $data = $request->validated();
-        Config::where('id', $id)->update($data);
+        $newConfig = Config::where('id', $id)->update($data);
+        
+        $data2['user_id'] = auth()->id();
+        $data2['aplication_id'] = $id;
+        $data2['payload'] = $request->payload;
+
+        $newHistoric = tap(new Historic($data2))->save();
+
         return redirect('/remoteConfig');
     }
 }

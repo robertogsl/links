@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aplication;
+use App\Historic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AplicationStoreRequest;
@@ -15,7 +16,7 @@ class AplicationController extends Controller {
      */
     public function index()
     {
-        return view('dashboard', ['aplications' => auth()->user()->aplications]);
+        return view('aplications', ['aplications' => auth()->user()->aplications]);
     }
 
     public function store(AplicationStoreRequest $request)
@@ -24,10 +25,13 @@ class AplicationController extends Controller {
         $data['user_id'] = auth()->id();
         
         $newAplication = tap(new Aplication($data))->save();
-        $newAplication->configs()->create([
-            'payload'=>"",
-            'userLastAlteration'=> auth()->id()
-            ]);
+        $newAplication->configs()->create(['payload'=>""]);
+
+        $data2['user_id'] = auth()->id();
+        $data2['aplication_id'] = $newAplication->id;
+        $data2['payload'] = "";
+
+        $newHistoric = tap(new Historic($data2))->save();
 
         return redirect('/remoteConfig');
     }

@@ -33,3 +33,5 @@ Route::post('/remoteConfig/config/{id}', 'ConfigController@store')->name('storeC
 Route::get('/remoteConfig/cadastrar', 'AplicationController@viewRegisterAplication')->name('showAplication');
 
 Route::post('/remoteConfig/cadastrar', 'AplicationController@store')->name('createAplication');
+
+Route::get('/remoteConfig/historico/{id}', 'HistoricController@index')->name('showHistoric');

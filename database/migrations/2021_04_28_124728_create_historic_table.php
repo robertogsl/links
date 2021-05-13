@@ -13,10 +13,14 @@ class CreateHistoricTable extends Migration
      */
     public function up()
     {
-        Schema::create('historic', function (Blueprint $table) {
+        Schema::create('historics', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('payload')
+            $table->string('payload');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('aplication_id');
+            $table->foreign('aplication_id')->references('id')->on('aplications');
         });
     }
 

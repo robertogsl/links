@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('Aplications') }}</div>
 
                     <div class="card-body">
 
@@ -14,6 +14,7 @@
                                 <tr>
                                     <td>{{ $aplication->name }}</td>
                                     <td><a href="{{ url('remoteConfig/config', [$aplication->id]) }}"><button>Editar</button></a></td>
+                                    <td><a href="{{ url('remoteConfig/historico', [$aplication->id]) }}"><button>Histórico</button></a></td>
                                 </tr>
                             @endforeach
                             </table>
